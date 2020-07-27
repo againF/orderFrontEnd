@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alan私人订制尊享午餐</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>菜品</h1>
+        <ul class="list">
+            <label class="item">
+                <input v-model="selectAll" type="checkbox">
+                <div class="name">全选</div>
+                <div class="cost">成本价</div>
+                <div class="cost">分量</div>
+                <div class="cost">份数</div>
+            </label>
+            <div class="item" v-for="(item, index) in menu" :key="index">
+                <input v-model="select" type="checkbox" :value="item">
+                <div class="name">{{item.name}}</div>
+                <div class="cost">{{item.cost}}元</div>
+                <div class="cost">{{item.num}}</div>
+                <div class="cost">
+                    <span class="mi" @click="mi(item)">-</span>{{item.count}}<span class="add"
+                        @click="add(item)">+</span>
+                </div>
+            </div>
+        </ul>
+        <h1>成本</h1>
+        <p>
+            {{cost}}元
+        </p>
+    </div>
+
+    <script src="./js/vue_dev.js"></script>
+    <script>
+        let vm = new Vue({
+            el: "#app",
+            data: {
+                asdasd: 0,
+                menu: [{
+                        name: "玉米",
+                        num: "1根",
+                        cost: 3, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "胡萝卜",
+                        num: "半根",
+                        cost: 0.7, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "南瓜",
+                        cost: 0.6, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "豆腐",
+                        num: "3片",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "荷兰豆",
+                        num: "5片",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "木耳",
+                        num: "3片",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "酸奶",
+                        num: "1杯",
+                        cost: 1.725, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "紫薯",
+                        num: "1根",
+                        cost: 3.5, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "西芹",
+                        num: "1根",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    }, {
+                        name: "西蓝花",
+                        num: "3棵",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    }, {
+                        name: "鸡胸肉",
+                        num: "125克",
+                        cost: 3.5, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "香菇",
+                        num: "3片",
+                        cost: 0.5, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "小番茄",
+                        num: "3个",
+                        cost: 0.5, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "洋葱",
+                        num: "几片",
+                        cost: 0.2, // 成本价
+                        count: 1, // 份数
+                    }, {
+                        name: "生菜",
+                        num: "3片",
+                        cost: 0.5, // 成本价
+                        count: 1, // 份数
+                    }, {
+                        name: "虾仁",
+                        num: "5个",
+                        cost: 3, // 成本价
+                        count: 1, // 份数
+                    }, {
+                        name: "黄瓜",
+                        num: "1/3根",
+                        cost: 0.5, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "口蘑",
+                        num: "3个",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    },
+                    {
+                        name: "芦笋",
+                        num: "3根",
+                        cost: 1, // 成本价
+                        count: 1, // 份数
+                    },
+                ],
+                select: [], // 勾选结果
+                selectAll: false
+            },
+            computed: {
+                cost() {
+                    let sum = 0;
+                    for (let i = 0; i < this.select.length; i++) {
+                        sum += this.select[i].cost * this.select[i].count;
+                    }
+                    return sum;
+                }
+            },
+            watch: {
+                selectAll(val) {
+                    console.log(val);
+                    if (val) {
+                        this.select = this.menu;
+                    } else {
+                        this.select = []
+                    }
+                }
+            },
+            methods: {
+                mi(item) {
+
+                    for (let i = 0; i < this.select.length; i++) {
+                        if (this.select[i].name === item.name) {
+                            let newCount = this.select[i].count--
+                            let newItem = {
+                                name: item.name,
+                                num: item.num,
+                                cost: item.cost, // 成本价
+                                count: newCount, // 份数
+                            }
+                            Vue.set(this.select, i, newItem)
+                        }
+                    }
+                },
+                add(item) {
+                    for (let i = 0; i < this.select.length; i++) {
+                        if (this.select[i].name === item.name) {
+                            let
+                                newCount = this.select[i].count++
+                            let newItem = {
+                                name: item.name,
+                                num: item.num,
+                                cost: item.cost, // 成本价 
+                                count: newCount, // 份数 
+                            }
+                            Vue.set(this.select, i, newItem)
+                        }
+                    }
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>
