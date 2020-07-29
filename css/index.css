@@ -1,7 +1,11 @@
 #app {
     padding: 15px;
 }
-
+.h1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .list {
     list-style: none;
     padding: 0;
@@ -28,4 +32,17 @@
 
 .add {
     margin-left: 15px;
+}
+.user-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.user-item {
+    display:flex;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-basis: 25%;
 }
