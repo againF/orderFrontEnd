@@ -25,8 +25,8 @@
                 <div class="cost">{{item.cost}}元</div>
                 <div class="cost">{{item.num}}</div>
                 <div class="cost">
-                    <span class="mi" @click="mi(item)">-</span>{{item.count}}<span class="add"
-                        @click="add(item)">+</span>
+                    <span class="mi" @click="mi(item,index)">-</span>{{item.count}}<span class="add"
+                        @click="add(item,index)">+</span>
                 </div>
             </div>
         </ul>
@@ -41,7 +41,6 @@
         let vm = new Vue({
             el: "#app",
             data: {
-                asdasd: 0,
                 menu: [{
                         name: "玉米",
                         num: "1根",
@@ -174,35 +173,33 @@
                 }
             },
             methods: {
-                mi(item) {
+                mi(item,index) {
 
-                    for (let i = 0; i < this.select.length; i++) {
-                        if (this.select[i].name === item.name) {
-                            let newCount = this.select[i].count--
-                            let newItem = {
-                                name: item.name,
-                                num: item.num,
-                                cost: item.cost, // 成本价
-                                count: newCount, // 份数
-                            }
-                            Vue.set(this.select, i, newItem)
+                    let newCount = item.count - 1;
+                    
+                    if(newCount < 0) {
+                        return;
+                    }else {
+                        let newItem = {
+                            name: item.name,
+                            num: item.num,
+                            cost: item.cost, // 成本价
+                            count: newCount, // 份数
                         }
+                        Vue.set(this.menu, index, newItem)
                     }
+                    
                 },
-                add(item) {
-                    for (let i = 0; i < this.select.length; i++) {
-                        if (this.select[i].name === item.name) {
-                            let
-                                newCount = this.select[i].count++
-                            let newItem = {
-                                name: item.name,
-                                num: item.num,
-                                cost: item.cost, // 成本价 
-                                count: newCount, // 份数 
-                            }
-                            Vue.set(this.select, i, newItem)
-                        }
+                add(item,index) {
+                    
+                    let newCount = item.count + 1;
+                    let newItem = {
+                        name: item.name,
+                        num: item.num,
+                        cost: item.cost, // 成本价
+                        count: newCount, // 份数
                     }
+                    Vue.set(this.menu, index, newItem)
                 }
             },
         })
