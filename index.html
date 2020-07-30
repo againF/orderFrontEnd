@@ -17,7 +17,10 @@
                 <div class="user-info">{{item.name}}</div>
             </li>
         </ul>
-        <h1 class="h1"><div>菜品</div><div @click="reset"> 重置</div></h1>
+        <h1 class="h1">
+            <div>菜品</div>
+            <div @click="reset"> 重置</div>
+        </h1>
         <ul class="list">
             <label class="item">
                 <input v-model="selectAll" type="checkbox">
@@ -37,7 +40,7 @@
                 </div>
             </div>
         </ul>
-        
+
         <h1>订单</h1>
         <p>
             {{selectResult}}
@@ -55,34 +58,34 @@
             data: {
                 user: "",
                 customerList: [{
-                    id: 0,
-                    name: "小蕊",
-                },
-                {
-                    id: 1,
-                    name: "小英",
-                },  
-                {
-                    id: 2,
-                    name: "Bella",
-                },
-                {
-                    id: 3,
-                    name: "iwen",
-                },
-                {
-                    id: 4,
-                    name: "温娴",
-                },{
-                    id: 5,
-                    name: "金辉",
-                },{
-                    id: 6,
-                    name: "姜姜",
-                },{
-                    id:7,
-                    name: "张琰",
-                },
+                        id: 0,
+                        name: "小蕊",
+                    },
+                    {
+                        id: 1,
+                        name: "小英",
+                    },
+                    {
+                        id: 2,
+                        name: "Bella",
+                    },
+                    {
+                        id: 3,
+                        name: "iwen",
+                    },
+                    {
+                        id: 4,
+                        name: "温娴",
+                    }, {
+                        id: 5,
+                        name: "金辉",
+                    }, {
+                        id: 6,
+                        name: "姜姜",
+                    }, {
+                        id: 7,
+                        name: "张琰",
+                    },
                 ],
                 menu: [{
                         id: 0,
@@ -246,9 +249,9 @@
                     return sum;
                 },
                 selectResult() {
-                    if(this.select.length > 0) {
+                    if (this.select.length > 0) {
                         let result = `${this.user}: `;
-                        for(let i = 0;i < this.select.length;i++) {
+                        for (let i = 0; i < this.select.length; i++) {
                             result += `${this.select[i].name}*${this.select[i].count};`
                         }
                         return `${result} 成本总价：${this.cost} 实收：${this.cost + 5}`;
@@ -267,14 +270,14 @@
                 }
             },
             mounted() {
-                this.resetMenu = this.menu;
+                this.resetMenu = JSON.parse(JSON.stringify(this.menu));
                 this.initCopy();
             },
             methods: {
                 initCopy() {
                     let clipboard = new ClipboardJS('.btn');
 
-                    clipboard.on('success', function(e) {
+                    clipboard.on('success', function (e) {
                         console.info('Action:', e.action);
                         console.info('Text:', e.text);
                         console.info('Trigger:', e.trigger);
@@ -282,25 +285,25 @@
                         e.clearSelection();
                     });
 
-                    clipboard.on('error', function(e) {
+                    clipboard.on('error', function (e) {
                         console.error('Action:', e.action);
                         console.error('Trigger:', e.trigger);
                         alert("复制失败")
                     });
-                },  
+                },
                 reset() {
                     this.menu = this.resetMenu;
                     this.select = [];
                     this.selectAll = false;
                     this.user = ""
                 },
-                mi(item,index) {
+                mi(item, index) {
 
                     let newCount = item.count - 1;
-                    
-                    if(newCount < 0) {
+
+                    if (newCount < 0) {
                         return;
-                    }else {
+                    } else {
                         let newItem = {
                             id: item.id,
                             name: item.name,
@@ -309,17 +312,17 @@
                             count: newCount, // 份数
                         }
                         Vue.set(this.menu, index, newItem)
-                        for(let i = 0;i < this.select.length;i++) {
-                            if(this.select[i].id === item.id) {
+                        for (let i = 0; i < this.select.length; i++) {
+                            if (this.select[i].id === item.id) {
                                 Vue.set(this.select, i, newItem)
                                 return;
                             }
                         }
                     }
-                    
+
                 },
-                add(item,index) {
-                    
+                add(item, index) {
+
                     let newCount = item.count + 1;
                     let newItem = {
                         id: item.id,
@@ -329,8 +332,8 @@
                         count: newCount, // 份数
                     }
                     Vue.set(this.menu, index, newItem)
-                    for(let i = 0;i < this.select.length;i++) {
-                        if(this.select[i].id === item.id) {
+                    for (let i = 0; i < this.select.length; i++) {
+                        if (this.select[i].id === item.id) {
                             Vue.set(this.select, i, newItem)
                             return;
                         }
