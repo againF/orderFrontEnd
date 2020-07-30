@@ -299,7 +299,7 @@
                 },
                 mi(item, index) {
 
-                    let newCount = item.count - 1;
+                    let newCount = item.count - 0.5;
 
                     if (newCount < 0) {
                         return;
@@ -323,7 +323,7 @@
                 },
                 add(item, index) {
 
-                    let newCount = item.count + 1;
+                    let newCount = item.count + 0.5;
                     let newItem = {
                         id: item.id,
                         name: item.name,
